@@ -35,13 +35,17 @@
 - Lab test 25 April - 2 hours
 - Assignment - 2 May - In person demos 
 
+## Week 2 - Seek, Arrive, PathFollowing
+- [Recording](https://tudublin-my.sharepoint.com/:v:/g/personal/bryan_duggan_tudublin_ie/EYDGjgr5arhMq6x7Nfk_u6UBh7Vr0cuT3yskoMZeiBWQ7Q?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D&e=VLLEJ2)
+
 ## Week 1 - Introduction to the course. Introduction to steering behaviours
 
 ## Lab
 - No lab this week
 
 ## Lecture
-- [Recording of Wednesday class]()
+- [Recording](https://tudublin-my.sharepoint.com/:v:/g/personal/bryan_duggan_tudublin_ie/EYDGjgr5arhMq6x7Nfk_u6UBh7Vr0cuT3yskoMZeiBWQ7Q?e=wvutLS&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D)
+- [Recording](https://tudublin-my.sharepoint.com/:v:/g/personal/bryan_duggan_tudublin_ie/EYDGjgr5arhMq6x7Nfk_u6UBh7Vr0cuT3yskoMZeiBWQ7Q?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D&e=8eLNa5)
 
 - [Introduction slides](https://tudublin-my.sharepoint.com/:p:/g/personal/bryan_duggan_tudublin_ie/EVB8iHL_Cy1DvVT1BW5SSd8BiP7R3pY7lBQoMN8Tmq0isw?e=s1TB2n)
 - [Steering Behaviours Slides (a bit out of date)](https://drive.google.com/file/d/1nQeVLqhNY1JvAZQK_BgMxUoVr7w1VPUE/view?usp=sharing)

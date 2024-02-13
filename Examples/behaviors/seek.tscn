@@ -1,8 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://doxnhvhjq4su4"]
+[gd_scene load_steps=13 format=3 uid="uid://doxnhvhjq4su4"]
 
+[ext_resource type="Script" path="res://behaviors/root.gd" id="1_tugak"]
 [ext_resource type="Script" path="res://behaviors/BigBoid.gd" id="1_v3sjo"]
 [ext_resource type="Material" uid="uid://w1qh7uc0q4l6" path="res://behaviors/boid_material.tres" id="2_6po8y"]
 [ext_resource type="Script" path="res://behaviors/MoveMe.gd" id="3_fk53t"]
+[ext_resource type="Script" path="res://behaviors/SpineAnimator.gd" id="4_fhisk"]
 
 [sub_resource type="PrismMesh" id="PrismMesh_6q73x"]
 
@@ -13,24 +15,44 @@ background_mode = 1
 ambient_light_source = 2
 ambient_light_color = Color(0.607843, 0.607843, 0.607843, 1)
 
+[sub_resource type="Curve3D" id="Curve3D_ybie1"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 12.4839, -0.0135498, 17.0064, 0, 0, 0, 0, 0, 0, -21.0645, -0.0112305, 14.0462, 0, 0, 0, 0, 0, 0, -27.7974, 0.0078125, -9.86719, 0, 0, 0, 0, 0, 0, 26.1819, 0.00927734, -11.7826, 0, 0, 0, 0, 0, 0, 20.2036, -0.00964355, 11.9567, 0, 0, 0, 0, 0, 0, 17.0112, -0.0119629, 14.8008),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0)
+}
+point_count = 6
+
+[sub_resource type="BoxMesh" id="BoxMesh_knd2o"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_u6xwl"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_5ns1m"]
+
 [node name="root" type="Node3D"]
+script = ExtResource("1_tugak")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 30, 0)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -9.2033, 20.1768, 6.13743)
 
 [node name="boid" type="CharacterBody3D" parent="."]
 script = ExtResource("1_v3sjo")
 target_node_path = NodePath("../Marker3D")
+seek_enabled = false
+follow_path = true
+power = 10.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="boid"]
 transform = Transform3D(1, 0, 0, 0, -8.74228e-08, -1, 0, 2, -4.37114e-08, 0, 0, 0)
-visible = false
 mesh = SubResource("PrismMesh_6q73x")
 skeleton = NodePath("../..")
 surface_material_override/0 = ExtResource("2_6po8y")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="boid"]
 shape = SubResource("BoxShape3D_752ur")
+
+[node name="SpineAnimator" type="Node" parent="boid"]
+script = ExtResource("4_fhisk")
+bonePaths = [NodePath(".."), NodePath("../../MeshInstance3D"), NodePath("../../MeshInstance3D2")]
 
 [node name="Marker3D" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.06085, 0, 4.15806)
@@ -46,7 +68,37 @@ transform = Transform3D(0.580348, -0.712167, 0.394988, 0, 0.485023, 0.874501, -0
 environment = SubResource("Environment_mhj6t")
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 10.0
+wait_time = 2.0
 autostart = true
+
+[node name="Path3D" type="Path3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.6306, 0, 0)
+curve = SubResource("Curve3D_ybie1")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.83333)
+mesh = SubResource("BoxMesh_knd2o")
+surface_material_override/0 = ExtResource("2_6po8y")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.22902)
+mesh = SubResource("BoxMesh_knd2o")
+surface_material_override/0 = ExtResource("2_6po8y")
+
+[node name="XROrigin3D" type="XROrigin3D" parent="."]
+
+[node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D"]
+
+[node name="XRController3D" type="XRController3D" parent="XROrigin3D"]
+tracker = &"left_hand"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="XROrigin3D/XRController3D"]
+mesh = SubResource("BoxMesh_u6xwl")
+
+[node name="XRController3D2" type="XRController3D" parent="XROrigin3D"]
+tracker = &"right_hand"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="XROrigin3D/XRController3D2"]
+mesh = SubResource("BoxMesh_5ns1m")
 
 [connection signal="timeout" from="Timer" to="Marker3D" method="_on_timer_timeout"]

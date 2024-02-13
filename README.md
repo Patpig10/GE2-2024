@@ -7,6 +7,8 @@
 [![World Videophone](images/wvp.jpg)](https://teams.microsoft.com/l/meetup-join/19%3ameeting_Y2M1ZWM5MmUtMjlhZi00NzM5LThjMTctOTdjMzU3OGQyZDYz%40thread.v2/0?context=%7b%22Tid%22%3a%22766317cb-e948-4e5f-8cec-dabc8e2fd5da%22%2c%22Oid%22%3a%2261aab78b-a857-4647-9668-83d4cca5de03%22%7d)
 
 ## Resources
+- [Godot quick reference](https://github.com/skooter500/csresources/blob/master/godot_ref.md)
+- [Unity to Godot porting guide](https://github.com/skooter500/csresources/blob/master/unity_to_godot.md)
 - [A build of Infinite Forms](https://drive.google.com/file/d/1w24BcMAi6P1XmPc9D9ss6Lkro4KBvsMS/view?usp=sharing)
 - [All about Infinite Forms](http://bryanduggan.org/forms)
 - [Infinite Forms Code](http://github.com/skooter500/forms)
@@ -34,6 +36,9 @@
 ## Assessment Schedule	
 - Lab test 25 April - 2 hours
 - Assignment - 2 May - In person demos 
+
+## Week 3 - Path Following, Player Steering
+- [Recording](https://tudublin-my.sharepoint.com/:v:/g/personal/bryan_duggan_tudublin_ie/EWJmksalE75IqakqPH_fLR4BIGyVScxy73HPIY24Lhz-ew?e=MARP3t&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D)
 
 ## Week 2 - Seek, Arrive, PathFollowing
 - [Recording](https://tudublin-my.sharepoint.com/:v:/g/personal/bryan_duggan_tudublin_ie/EYDGjgr5arhMq6x7Nfk_u6UBh7Vr0cuT3yskoMZeiBWQ7Q?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D&e=VLLEJ2)

@@ -1,10 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://doxnhvhjq4su4"]
+[gd_scene load_steps=15 format=3 uid="uid://doxnhvhjq4su4"]
 
 [ext_resource type="Script" path="res://behaviors/root.gd" id="1_tugak"]
 [ext_resource type="Script" path="res://behaviors/BigBoid.gd" id="1_v3sjo"]
 [ext_resource type="Material" uid="uid://w1qh7uc0q4l6" path="res://behaviors/boid_material.tres" id="2_6po8y"]
 [ext_resource type="Script" path="res://behaviors/MoveMe.gd" id="3_fk53t"]
 [ext_resource type="Script" path="res://behaviors/SpineAnimator.gd" id="4_fhisk"]
+[ext_resource type="Script" path="res://behaviors/PathDrawer.gd" id="6_1gx1c"]
 
 [sub_resource type="PrismMesh" id="PrismMesh_6q73x"]
 
@@ -17,10 +18,10 @@ ambient_light_color = Color(0.607843, 0.607843, 0.607843, 1)
 
 [sub_resource type="Curve3D" id="Curve3D_ybie1"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 12.4839, -0.0135498, 17.0064, 0, 0, 0, 0, 0, 0, -21.0645, -0.0112305, 14.0462, 0, 0, 0, 0, 0, 0, -27.7974, 0.0078125, -9.86719, 0, 0, 0, 0, 0, 0, 26.1819, 0.00927734, -11.7826, 0, 0, 0, 0, 0, 0, 20.2036, -0.00964355, 11.9567, 0, 0, 0, 0, 0, 0, 17.0112, -0.0119629, 14.8008),
-"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0)
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 12.4839, -0.0135498, 17.0064, 0, 0, 0, 0, 0, 0, 9.60939, 0.00927734, 2.30701, 0, 0, 0, 0, 0, 0, 20.2036, -0.00964355, 11.9567, 0, 0, 0, 0, 0, 0, 17.0112, -0.0119629, 14.8008),
+"tilts": PackedFloat32Array(0, 0, 0, 0)
 }
-point_count = 6
+point_count = 4
 
 [sub_resource type="BoxMesh" id="BoxMesh_knd2o"]
 
@@ -28,17 +29,20 @@ point_count = 6
 
 [sub_resource type="BoxMesh" id="BoxMesh_5ns1m"]
 
+[sub_resource type="SphereMesh" id="SphereMesh_i5vs6"]
+
 [node name="root" type="Node3D"]
 script = ExtResource("1_tugak")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -9.2033, 20.1768, 6.13743)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.7547, 24.6856, 6.13743)
 
 [node name="boid" type="CharacterBody3D" parent="."]
 script = ExtResource("1_v3sjo")
 target_node_path = NodePath("../Marker3D")
 seek_enabled = false
 follow_path = true
+flee_enabled = true
 power = 10.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="boid"]
@@ -72,8 +76,9 @@ wait_time = 2.0
 autostart = true
 
 [node name="Path3D" type="Path3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.6306, 0, 0)
+transform = Transform3D(0.769098, 0, -0.63913, 0, 1, 0, 0.63913, 0, 0.769098, 0, 0, -13.8321)
 curve = SubResource("Curve3D_ybie1")
+script = ExtResource("6_1gx1c")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.83333)
@@ -100,5 +105,15 @@ tracker = &"right_hand"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="XROrigin3D/XRController3D2"]
 mesh = SubResource("BoxMesh_5ns1m")
+
+[node name="enemy" type="CharacterBody3D" parent="."]
+script = ExtResource("1_v3sjo")
+max_speed = 20.0
+target_node_path = NodePath("../boid")
+looped = false
+
+[node name="enemy" type="MeshInstance3D" parent="enemy"]
+mesh = SubResource("SphereMesh_i5vs6")
+skeleton = NodePath("../..")
 
 [connection signal="timeout" from="Timer" to="Marker3D" method="_on_timer_timeout"]

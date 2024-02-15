@@ -25,6 +25,11 @@ extends CharacterBody3D
 @export var pursue_target_path:NodePath
 @onready var pursue_target:Node3D=get_node(pursue_target_path)
 
+@export var offset_pursue_enabled:bool=false
+@export var leader_target_path:NodePath
+@onready var leader_target:Node3D=get_node(leader_target_path)
+
+var offset:Vector3
 
 @onready var path:Path3D=get_node("../Path3D")
 
@@ -52,13 +57,30 @@ var target:Node3D
 func _ready():
 	target = get_node(target_node_path)	
 	
+	if offset_pursue_enabled:
+		offset = global_position - leader_target.global_position
+		offset = offset * leader_target.global_transform.basis
+	
 func arrive(target_pos:Vector3, slowing:float):
 	var to_target = target_pos - global_position
 	var dist = to_target.length()
+	if dist == 0:
+		return Vector3.ZERO
 	var ramped = (dist / slowing) * max_speed
 	var clamped = min(ramped, max_speed) 
 	var desired = (to_target * clamped) / dist
 	return desired - velocity
+	
+func offset_pursue(leader:BigBoid):
+	var global_target = leader.transform * offset
+	var to_target = global_target - global_position
+	var dist = to_target.length()
+	var t = dist / max_speed
+	DebugDraw3D.draw_sphere(global_target, 0.1, Color.CHARTREUSE)
+	var projected = global_target + leader.velocity * t
+	DebugDraw3D.draw_sphere(projected, 0.1, Color.RED)
+
+	return arrive(projected, 10)
 	
 func pursue(target_boid:BigBoid):
 	var to_target = target_boid.global_position - global_position
@@ -67,7 +89,7 @@ func pursue(target_boid:BigBoid):
 	var t = dist / max_speed
 	var projected = target_boid.global_position + target_boid.velocity * t
 	
-	DebugDraw3D.draw_arrow(target_boid.global_position, projected, Color.DARK_GOLDENROD, 0.1)
+	DebugDraw3D.draw_arrow(target_boid.global_position, projected, Color.GREEN, 0.1)
 	
 	return seek(projected) 
 	
@@ -121,6 +143,8 @@ func calculate():
 		force += flee(flee_target.global_transform, 5)
 	if pursue_enabled:
 		force += pursue(pursue_target)
+	if offset_pursue_enabled:
+		force += offset_pursue(leader_target)
 	return force
 	
 func _physics_process(delta):

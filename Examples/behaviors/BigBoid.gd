@@ -51,16 +51,16 @@ func draw_gizmos():
 	DebugDraw3D.draw_arrow(global_position, global_position + force, Color.RED, 0.1)
 	DebugDraw3D.draw_arrow(global_position, global_position + velocity, Color.YELLOW, 0.1)
 
-	DebugDraw3D.draw_sphere(target.global_position, slowing_distance, Color.BLUE_VIOLET)
+	# DebugDraw3D.draw_sphere(target.global_position, slowing_distance, Color.BLUE_VIOLET)
 
 var target:Node3D
 func _ready():
 	target = get_node(target_node_path)	
 	
-	if offset_pursue_enabled:
-		offset = global_position - leader_target.global_position
-		offset = offset * leader_target.global_transform.basis
-	
+	#if offset_pursue_enabled:
+		#offset = global_position - leader_target.global_position
+		#offset = offset * leader_target.global_transform.basis
+	#
 func arrive(target_pos:Vector3, slowing:float):
 	var to_target = target_pos - global_position
 	var dist = to_target.length()

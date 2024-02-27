@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://biksuyedq0tpj"]
+
+[ext_resource type="Script" path="res://behaviors/BigBoid.gd" id="1_ybguh"]
+[ext_resource type="Material" uid="uid://w1qh7uc0q4l6" path="res://behaviors/boid_material.tres" id="2_r2man"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_6q73x"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_752ur"]
+
+[node name="leader" type="CharacterBody3D"]
+transform = Transform3D(0.0042935, 0, 0.999991, 0, 1, 0, -0.999991, 0, 0.0042935, -9.53705, 0, 6.34747)
+script = ExtResource("1_ybguh")
+max_speed = 5.0
+target_node_path = NodePath("../Marker3D")
+slowing_distance = 20
+damping = 2.0
+seek_enabled = false
+looped = false
+power = 10.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -8.74228e-08, -1, 0, 2, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("PrismMesh_6q73x")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("2_r2man")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_752ur")

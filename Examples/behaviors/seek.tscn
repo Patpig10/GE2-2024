@@ -1,14 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://doxnhvhjq4su4"]
+[gd_scene load_steps=10 format=3 uid="uid://doxnhvhjq4su4"]
 
 [ext_resource type="Script" path="res://behaviors/root.gd" id="1_tugak"]
-[ext_resource type="Script" path="res://behaviors/BigBoid.gd" id="1_v3sjo"]
-[ext_resource type="Material" uid="uid://w1qh7uc0q4l6" path="res://behaviors/boid_material.tres" id="2_6po8y"]
-[ext_resource type="Script" path="res://behaviors/MoveMe.gd" id="3_fk53t"]
 [ext_resource type="Script" path="res://behaviors/PathDrawer.gd" id="6_1gx1c"]
-
-[sub_resource type="PrismMesh" id="PrismMesh_6q73x"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_752ur"]
+[ext_resource type="PackedScene" uid="uid://biksuyedq0tpj" path="res://leader.tscn" id="6_2f7ag"]
+[ext_resource type="PackedScene" uid="uid://b4r2h67rtwk63" path="res://follower.tscn" id="6_jc53t"]
+[ext_resource type="Script" path="res://behaviors/formation.gd" id="7_24myj"]
 
 [sub_resource type="Environment" id="Environment_mhj6t"]
 background_mode = 1
@@ -29,32 +25,13 @@ point_count = 4
 [node name="root" type="Node3D"]
 script = ExtResource("1_tugak")
 
+[node name="formation" type="Node3D" parent="."]
+script = ExtResource("7_24myj")
+leader_prefab = ExtResource("6_2f7ag")
+follower_prefab = ExtResource("6_jc53t")
+
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.7547, 24.6856, 6.13743)
-
-[node name="boid" type="CharacterBody3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -18.7061, 0, 5.51591)
-script = ExtResource("1_v3sjo")
-max_speed = 5.0
-target_node_path = NodePath("../Marker3D")
-seek_enabled = false
-looped = false
-offset_pursue_enabled = true
-leader_target_path = NodePath("../leader")
-power = 10.0
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="boid"]
-transform = Transform3D(1, 0, 0, 0, -8.74228e-08, -1, 0, 2, -4.37114e-08, 0, 0, 0)
-mesh = SubResource("PrismMesh_6q73x")
-skeleton = NodePath("../..")
-surface_material_override/0 = ExtResource("2_6po8y")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="boid"]
-shape = SubResource("BoxShape3D_752ur")
-
-[node name="Marker3D" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.06085, 0, 4.15806)
-script = ExtResource("3_fk53t")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.580348, -0.712167, 0.394988, 0, 0.485023, 0.874501, -0.814369, -0.507515, 0.281482, 0, 4.35052, 0)
@@ -86,26 +63,3 @@ tracker = &"right_hand"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="XROrigin3D/XRController3D2"]
 mesh = SubResource("BoxMesh_5ns1m")
-
-[node name="leader" type="CharacterBody3D" parent="."]
-transform = Transform3D(0.0042935, 0, 0.999991, 0, 1, 0, -0.999991, 0, 0.0042935, -9.53705, 0, 6.34747)
-script = ExtResource("1_v3sjo")
-max_speed = 5.0
-target_node_path = NodePath("../Marker3D")
-slowing_distance = 20
-damping = 2.0
-seek_enabled = false
-follow_path = true
-looped = false
-power = 10.0
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="leader"]
-transform = Transform3D(1, 0, 0, 0, -8.74228e-08, -1, 0, 2, -4.37114e-08, 0, 0, 0)
-mesh = SubResource("PrismMesh_6q73x")
-skeleton = NodePath("../..")
-surface_material_override/0 = ExtResource("2_6po8y")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="leader"]
-shape = SubResource("BoxShape3D_752ur")
-
-[connection signal="timeout" from="Timer" to="Marker3D" method="_on_timer_timeout"]
